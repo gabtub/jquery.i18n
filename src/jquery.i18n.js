@@ -228,6 +228,7 @@
 		return this.each( function () {
 			var $this = $( this ),
 				messageKey = $this.data( 'i18n' ),
+      	params = $this.data('i18n-placeholders'),
 				lBracket, rBracket, type, key;
 
 			if ( messageKey ) {
@@ -242,7 +243,7 @@
 						$this.attr( type, i18n.parse( key ) );
 					}
 				} else {
-					$this.text( i18n.parse( messageKey ) );
+					$this.text( i18n.parse( messageKey, params ) );
 				}
 			} else {
 				$this.find( '[data-i18n]' ).i18n();
