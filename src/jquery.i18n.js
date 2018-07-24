@@ -224,25 +224,26 @@
 		}
 	};
 
-	$.fn.i18n = function () {
-		var i18n = $.data( document, 'i18n' );
+  $.fn.i18n = function () {
+    var i18n = $.data( document, 'i18n' );
 
-		if ( !i18n ) {
-			i18n = new I18N();
-			$.data( document, 'i18n', i18n );
-		}
-		String.locale = i18n.locale;
-		return this.each( function () {
-			var $this = $( this ),
-				messageKey = $this.data( 'i18n' );
+    if ( !i18n ) {
+      i18n = new I18N();
+      $.data( document, 'i18n', i18n );
+    }
+    String.locale = i18n.locale;
+    return this.each( function () {
+      var $this = $( this ),
+        messageKey = $this.data( 'i18n' ),
+        params = $this.data('i18n-placeholders');
 
-			if ( messageKey ) {
-				$this.text( i18n.parse( messageKey ) );
-			} else {
-				$this.find( '[data-i18n]' ).i18n();
-			}
-		} );
-	};
+      if ( messageKey ) {
+        $this.text( i18n.parse( messageKey, params ) );
+      } else {
+        $this.find( '[data-i18n]' ).i18n();
+      }
+    } );
+  };
 
 	String.locale = String.locale || $( 'html' ).attr( 'lang' );
 
